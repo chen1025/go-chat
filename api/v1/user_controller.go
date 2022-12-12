@@ -2,7 +2,7 @@ package v1
 
 import (
 	"ginchat/models"
-	service2 "ginchat/mvc/service"
+	"ginchat/mvc/service"
 	"ginchat/utils"
 	"github.com/asaskevich/govalidator"
 	"github.com/gin-gonic/gin"
@@ -37,7 +37,7 @@ func (uc *userController) CreateUser(c *gin.Context) {
 	}
 	password, _ := bcrypt.GenerateFromPassword([]byte(pwd), 0)
 	user.Password = string(password)
-	data := service2.UserService.GetByName(user.Name)
+	data := service.UserService.GetByName(user.Name)
 	if data.Name != "" {
 		c.JSON(200, gin.H{
 			"message": "用户已存在",
@@ -45,7 +45,7 @@ func (uc *userController) CreateUser(c *gin.Context) {
 		})
 		return
 	}
-	service2.UserService.CreateUser(user)
+	service.UserService.CreateUser(user)
 	c.JSON(200, gin.H{
 		"message": "注册成功",
 		"code":    0,
@@ -62,7 +62,7 @@ func (uc *userController) DeleteUser(c *gin.Context) {
 	user := models.UserBasic{}
 	id, _ := strconv.Atoi(c.Query("id"))
 	user.ID = uint(id)
-	service2.UserService.DeleteUser(user)
+	service.UserService.DeleteUser(user)
 	c.JSON(200, gin.H{
 		"message": "注销成功",
 		"code":    0,
@@ -102,7 +102,7 @@ func (uc *userController) UpdateUser(c *gin.Context) {
 		})
 		return
 	}
-	service2.UserService.UpdateUser(user)
+	service.UserService.UpdateUser(user)
 	c.JSON(200, gin.H{
 		"message": "修改成功",
 		"code":    0,
@@ -129,7 +129,7 @@ func (uc *userController) Login(c *gin.Context) {
 	user.Name = c.PostForm("name")
 	user.Password = c.PostForm("password")
 
-	u := service2.UserService.GetByName(user.Name)
+	u := service.UserService.GetByName(user.Name)
 	// 用户是否存在
 	if u.Name == "" {
 		c.JSON(200, gin.H{
@@ -171,7 +171,7 @@ var upGrade = websocket.Upgrader{
 func (uc *userController) SearchFriend(c *gin.Context) {
 	query := c.PostForm("userId")
 	id, _ := strconv.Atoi(query)
-	friend := service2.ContactService.SearchFriend(uint(id))
+	friend := service.ContactService.SearchFriend(uint(id))
 	utils.RespOkList(c.Writer, friend, len(friend))
 }
 
@@ -185,7 +185,7 @@ func (uc *userController) SearchFriend(c *gin.Context) {
 func (uc *userController) FindByUserId(c *gin.Context) {
 	id := c.PostForm("userId")
 	uid, _ := strconv.Atoi(id)
-	data := service2.UserService.FindByUserId(uint(uid))
+	data := service.UserService.FindByUserId(uint(uid))
 	utils.RespOk(c.Writer, "查询成功", data)
 
 }
@@ -208,6 +208,6 @@ func (uc *userController) GetMsgByRedis(c *gin.Context) {
 	end, _ := strconv.Atoi(c.PostForm("end"))
 	isRev, _ := strconv.ParseBool(c.PostForm("isRev"))
 
-	data := service2.MessageService.GetMsgByRedis(uidA, uidB, start, end, isRev)
+	data := service.MessageService.GetMsgByRedis(uidA, uidB, start, end, isRev)
 	utils.RespOkList(c.Writer, "查询成功", data)
 }
