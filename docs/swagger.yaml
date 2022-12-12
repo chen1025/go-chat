@@ -1,0 +1,304 @@
+info:
+  contact: {}
+paths:
+  /contact/addFriend:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: userId
+        required: true
+        type: integer
+      - description: 好友名称
+        in: formData
+        name: targetName
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 添加好友
+      tags:
+      - 添加好友
+  /contact/addGroup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 群id
+        in: formData
+        name: comId
+        required: true
+        type: integer
+      - description: 用户id
+        in: formData
+        name: userId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 添加群组
+      tags:
+      - 添加群组
+  /contact/createGroup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: ownerId
+        required: true
+        type: integer
+      - description: 群名称
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 群头像
+        in: formData
+        name: icon
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 创建群组
+      tags:
+      - 创建群组
+  /contact/findGroup:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: ownerId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 查询群组
+      tags:
+      - 查询群组
+  /index:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - 跳转首页
+  /toChat:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - 跳转聊天页面
+  /toRegister:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - 跳转注册页面
+  /user/FindByUserId:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: userId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 根据id查询用户
+      tags:
+      - 根据id查询用户
+  /user/createUser:
+    post:
+      parameters:
+      - description: 用户名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 创建用户
+      tags:
+      - 注册
+  /user/deleteUser:
+    get:
+      parameters:
+      - description: id
+        in: query
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 删除用户
+      tags:
+      - 注销
+  /user/getMsgByRedis:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: userIdA
+        required: true
+        type: integer
+      - description: 发消息着id
+        in: formData
+        name: userIdB
+        required: true
+        type: integer
+      - description: 开始位置
+        in: formData
+        name: start
+        required: true
+        type: integer
+      - description: 结束位置
+        in: formData
+        name: end
+        required: true
+        type: integer
+      - description: 用户id
+        in: formData
+        name: isRev
+        required: true
+        type: boolean
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 查询redis的消息
+      tags:
+      - 查询redis的消息
+  /user/getUserList:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - 获取用户列表
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户名
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - 登录
+  /user/searchFriend:
+    post:
+      parameters:
+      - description: 用户ID
+        in: formData
+        name: userId
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 查询好友
+      tags:
+      - 查询好友
+  /user/updateUser:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 用户id
+        in: formData
+        name: id
+        required: true
+        type: integer
+      - description: 头像
+        in: formData
+        name: icon
+        required: true
+        type: string
+      - description: 名称
+        in: formData
+        name: name
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: 修改用户
+      tags:
+      - 修改用户
+swagger: "2.0"

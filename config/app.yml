@@ -1,0 +1,25 @@
+mysql:
+  host: 127.0.0.1
+  port: 3306
+  username: root
+  password: letter123
+  database: ginchat?charset=utf8mb4&parseTime=True&loc=Local
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  DB: 0
+  poolSize: 20
+  minIdleConn: 8
+
+log:
+  level: debug
+  path: logs/chat.logs
+
+
+timeout:
+  DelayHeartbeat: 3   #延迟心跳时间  单位秒
+  HeartbeatHz: 30   #每隔多少秒心跳时间
+  HeartbeatMaxTime: 300  #最大心跳时间  ，超过此就下线
+  RedisOnlineTime: 4  #缓存的在线用户时长   单位H
